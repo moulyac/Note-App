@@ -11,7 +11,7 @@ const NoteDetails = ({route, navigation}: any) => {
       <TouchableOpacity
         // style={styles.button}
         onPress={() => {
-          navigation.navigate('addOrEditNote', {action: 'Edit'});
+          navigation.navigate('addOrEditNote', {action: 'Edit', title});
         }}>
         <Text
         // style={styles.button_text}

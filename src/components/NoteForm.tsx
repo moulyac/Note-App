@@ -1,20 +1,31 @@
 import {StyleSheet, Text, View} from 'react-native';
+import {yupResolver} from '@hookform/resolvers/yup';
 import React from 'react';
 import {useForm} from 'react-hook-form';
 import Input from './InputText/Input';
 import Button from './Button/Button';
+import * as yup from 'yup';
 
 const NoteFrom = ({route}: any) => {
-  const action = route.params.action;
-  const title = route.params.data;
+  const {action, title} = route.params;
 
-  const {control, handleSubmit} = useForm({
-    mode: 'onBlur',
+  const noteSchema = yup.object({
+    title: yup.string().required('Title is required.'),
+    description: yup.string().notRequired(),
+  });
+
+  const {
+    control,
+    handleSubmit,
+    formState: {errors},
+  } = useForm({
+    mode: 'all',
+    resolver: yupResolver(noteSchema),
     defaultValues: {title: title},
   });
 
   const onSubmit = (data: any) => console.log(data);
-
+  console.log(errors.title?.message);
   return (
     <View>
       <Text style={styles.title}>{action} Note</Text>
@@ -28,6 +39,10 @@ const NoteFrom = ({route}: any) => {
           RequiredMessage: 'Title is required.',
         }}
       />
+      <Text style={styles.errorMessage}>
+        {/* @ts-ignore */}
+        {errors.title && errors.title?.message}
+      </Text>
       <Input
         control={control}
         placeholder={'Enter description here'}
@@ -71,5 +86,9 @@ const styles = StyleSheet.create({
   },
   buttonText: {
     color: 'white',
+  },
+  errorMessage: {
+    marginLeft: 20,
+    color: 'red',
   },
 });

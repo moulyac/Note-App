@@ -5,9 +5,11 @@ import {useForm} from 'react-hook-form';
 import Input from './InputText/Input';
 import Button from './Button/Button';
 import * as yup from 'yup';
+import Util from './util';
 
-const NoteFrom = ({route}: any) => {
-  const {action, title} = route.params;
+const NoteFrom = ({route, navigation}: any) => {
+  const {action, title, data} = route.params;
+  const {updateNote, notes} = Util();
 
   const noteSchema = yup.object({
     title: yup.string().required('Title is required.'),
@@ -24,8 +26,15 @@ const NoteFrom = ({route}: any) => {
     defaultValues: {title: title},
   });
 
-  const onSubmit = (data: any) => console.log(data);
-  console.log(errors.title?.message);
+  const onSubmit = (fieldData: any) => {
+    console.log(fieldData, 'submit', data.id, notes);
+    updateNote(fieldData, data.id, notes);
+    navigation.navigate('noteDetails', {
+      noteTitle: title,
+      data: data,
+    });
+  };
+
   return (
     <View>
       <Text style={styles.title}>{action} Note</Text>

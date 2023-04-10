@@ -1,5 +1,5 @@
 /* eslint-disable react-native/no-inline-styles */
-import React, {useState} from 'react';
+import React from 'react';
 import {
   Button,
   FlatList,
@@ -10,34 +10,28 @@ import {
   View,
 } from 'react-native';
 import {COLORS} from '../util/colorThem/colors';
-
-interface INotes {
-  id: number;
-  Note: string;
-}
+import Util from './util';
 
 const Home = ({navigation}: any) => {
-  const [textInput, setTextInput] = useState('');
-  const [note, setNotes] = useState<INotes[] | any[]>([]);
-  const addNote = () => {
-    setNotes([...note, textInput]);
-    setTextInput('');
-  };
+  const {textInput, addNote, setTextInput, notes} = Util();
 
-  const Item = ({title}: any) => {
+  const Item = ({title, data}: any) => {
     return (
       <View style={styles.item}>
         <Button
           title={title}
           onPress={() =>
-            navigation.navigate('noteDetails', {noteTitle: title, data: title})
+            navigation.navigate('noteDetails', {
+              noteTitle: title,
+              data: data,
+            })
           }
         />
       </View>
     );
   };
 
-  const renderItem = ({item}: any) => <Item title={item} />;
+  const renderItem = ({item}: any) => <Item title={item.title} data={item} />;
 
   return (
     <View style={{flex: 1}}>
@@ -48,9 +42,9 @@ const Home = ({navigation}: any) => {
       </View>
       <View style={{padding: 10}}>
         <FlatList
-          data={note}
+          data={notes}
           renderItem={renderItem}
-          keyExtractor={index => index}
+          keyExtractor={index => index.id}
         />
       </View>
       <View style={styles.footer}>

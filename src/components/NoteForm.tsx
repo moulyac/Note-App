@@ -23,7 +23,7 @@ const NoteFrom = ({route, navigation}: any) => {
   } = useForm({
     mode: 'all',
     resolver: yupResolver(noteSchema),
-    defaultValues: {title: title},
+    defaultValues: {title: title, description: data.description},
   });
 
   const onSubmit = (fieldData: any) => {

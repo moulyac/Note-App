@@ -2,8 +2,8 @@ import {StyleSheet, Text, View} from 'react-native';
 import {yupResolver} from '@hookform/resolvers/yup';
 import React from 'react';
 import {useForm} from 'react-hook-form';
-import Input from './InputText/Input';
-import Button from './Button/Button';
+import Input from '../components/InputText/Input';
+import Button from '../components/Button/Button';
 import * as yup from 'yup';
 import Util from './util';
 

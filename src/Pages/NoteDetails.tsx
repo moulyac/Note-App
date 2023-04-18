@@ -1,7 +1,7 @@
 /* eslint-disable react-native/no-inline-styles */
 import React from 'react';
 import {StyleSheet, Text, TouchableOpacity, View} from 'react-native';
-import Util from './util';
+import Util from '../Pages/util';
 
 const NoteDetails = ({route, navigation}: any) => {
   const title = route.params.noteTitle;

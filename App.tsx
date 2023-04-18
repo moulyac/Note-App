@@ -8,6 +8,8 @@ import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import NoteDetails from './src/Pages/NoteDetails';
 import NoteFrom from './src/Pages/NoteForm';
 import {AuthContext} from './src/util/context';
+import SignIn from './src/Pages/SignIn';
+import SignUp from './src/Pages/SignUp';
 
 const App = () => {
   const Stack = createNativeStackNavigator();
@@ -86,7 +88,7 @@ const App = () => {
         token: userToken,
         id: undefined,
       });
-    }, 5000);
+    }, 3000);
   }, []);
 
   if (loginState.isLoading) {
@@ -102,6 +104,8 @@ const App = () => {
       <SafeAreaView style={{flex: 1, backgroundColor: COLORS.white}}>
         <NavigationContainer>
           <Stack.Navigator>
+            <Stack.Screen name="SignUpScreen" component={SignUp} />
+            <Stack.Screen name="SignIn" component={SignIn} />
             <Stack.Screen name="home" component={Home} options={{title: ' '}} />
             <Stack.Screen
               name="noteDetails"
@@ -113,8 +117,6 @@ const App = () => {
               component={NoteFrom}
               options={{title: ' '}}
             />
-            {/* <Stack.Screen name="SignIn" component={SignInScreen}/>
-            <Stack.Screen name="SignUpScreen" component={SignUpScreen}/> */}
           </Stack.Navigator>
         </NavigationContainer>
       </SafeAreaView>

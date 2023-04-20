@@ -62,7 +62,7 @@ const App = () => {
   const authContext = React.useMemo(
     () => ({
       signIn: () => {
-        dispatch({type: 'LOGIN', id: '', token: ''});
+        dispatch({type: 'LOGIN', id: 'loginId', token: 'loginToken'});
       },
       signOut: () => {
         dispatch({
@@ -72,8 +72,7 @@ const App = () => {
         });
       },
       signUp: () => {
-        // setUserToken('fgkj');
-        // setIsLoading(false);
+        dispatch({type: 'REGISTER', id: 'registerId', token: 'registerToken'});
       },
     }),
     [],
@@ -104,7 +103,7 @@ const App = () => {
       <SafeAreaView style={{flex: 1, backgroundColor: COLORS.white}}>
         <NavigationContainer>
           <Stack.Navigator>
-            <Stack.Screen name="SignUpScreen" component={SignUp} />
+            <Stack.Screen name="SignUp" component={SignUp} />
             <Stack.Screen name="SignIn" component={SignIn} />
             <Stack.Screen name="home" component={Home} options={{title: ' '}} />
             <Stack.Screen

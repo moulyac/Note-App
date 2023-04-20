@@ -1,12 +1,15 @@
-import React from 'react';
+import React, {useContext} from 'react';
 import {useForm} from 'react-hook-form';
 import {yupResolver} from '@hookform/resolvers/yup';
 import * as yup from 'yup';
-import {StyleSheet, Text, View} from 'react-native';
+import {StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 import Button from '../components/Button/Button';
 import Input from '../components/InputText/Input';
+import {AuthContext} from '../util/context';
 
 const SignIn = ({navigation}: any) => {
+  const {signIn} = useContext(AuthContext);
+
   const signInSchema = yup.object({
     email: yup.string().required('Email is required.'),
     password: yup.string().required('Password is required.'),
@@ -22,6 +25,7 @@ const SignIn = ({navigation}: any) => {
 
   const onSubmit = (data: any) => {
     console.log(data);
+    signIn();
     navigation.navigate('home');
   };
   return (
@@ -63,6 +67,12 @@ const SignIn = ({navigation}: any) => {
           style={styles.button}
           buttonTextStyle={styles.buttonText}
         />
+        <Text style={styles.link}>
+          Don't have an account?{' '}
+          <TouchableOpacity onPress={() => navigation.navigate('SignUp')}>
+            <Text>SignUp Here</Text>
+          </TouchableOpacity>
+        </Text>
       </View>
     </View>
   );
@@ -100,5 +110,9 @@ const styles = StyleSheet.create({
     marginLeft: 20,
     color: 'red',
     marginBottom: 15,
+  },
+  link: {
+    textAlign: 'center',
+    fontSize: 16,
   },
 });
